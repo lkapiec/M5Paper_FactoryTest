@@ -40,16 +40,25 @@ const uint8_t *kIMGLoading[16] = {
     ImageResource_item_loading_15_32x32,
     ImageResource_item_loading_16_32x32
 };
+
 const char *wallpapers_name_en[] = {
     "M5Paper",
     "Engine",
     "Penrose Triangle"
 };
+
+const char *wallpapers_name_pl[] = {
+    "M5Paper",
+    "Silnik",
+    "Penrose Triangle"
+};
+
 const char *wallpapers_name_zh[] = {
     "M5Paper",
     "引擎",
     "彭罗斯三角"
 };
+
 const char *wallpapers_name_ja[] = {
     "M5Paper",
     "エンジン",
@@ -111,7 +120,7 @@ void SetTimeSynced(uint8_t val)
 
 void SetLanguage(uint8_t language)
 {
-    if (language >= LANGUAGE_EN && language <= LANGUAGE_ZH)
+    if (language >= LANGUAGE_EN && language <= LANGUAGE_PL)
     {
         global_language = language;
     }
@@ -147,6 +156,9 @@ const char *GetWallpaperName(uint16_t wallpaper_id)
         return wallpapers_name_zh[wallpaper_id];
     case LANGUAGE_JA:
         return wallpapers_name_ja[wallpaper_id];
+    case LANGUAGE_PL:
+        return wallpapers_name_pl[wallpaper_id];
+        
     default:
         return wallpapers_name_en[wallpaper_id];
     }

@@ -16,13 +16,19 @@ void sw_ja_cb(epdgui_args_vector_t &args)
     SetLanguage(LANGUAGE_JA);
 }
 
+void sw_pl_cb(epdgui_args_vector_t &args)
+{
+    SetLanguage(LANGUAGE_PL);
+}
+
 Frame_Setting_Language::Frame_Setting_Language(void)
 {
     _frame_name = "Frame_Setting_Language";
 
     _sw_en = new EPDGUI_Switch(2, 4, 100, 532, 61);
     _sw_zh = new EPDGUI_Switch(2, 4, 160, 532, 61);
-    _sw_ja = new EPDGUI_Switch(2, 4, 220, 532, 61);
+    _sw_ja = new EPDGUI_Switch(2, 4, 220, 532, 61);    
+    _sw_pl = new EPDGUI_Switch(2, 4, 280, 532, 61);
 
     if(isTTFLoaded())
     {
@@ -38,6 +44,11 @@ Frame_Setting_Language::Frame_Setting_Language(void)
         _sw_ja->SetLabel(1, "日本語");
         _sw_ja->Canvas(1)->ReverseColor();
         _sw_ja->Bind(1, &sw_ja_cb);
+        _sw_pl->SetLabel(0, "Polski");
+        _sw_pl->SetLabel(1, "Polski");
+        _sw_pl->Canvas(1)->ReverseColor();
+        _sw_pl->Bind(1, &sw_pl_cb);
+
     }
     else
     {
@@ -53,12 +64,19 @@ Frame_Setting_Language::Frame_Setting_Language(void)
         _sw_ja->SetLabel(1, "Japanese (Need .ttf file)");
         _sw_ja->Canvas(1)->ReverseColor();
         _sw_ja->Bind(1, &sw_ja_cb);
+        _sw_pl->SetLabel(0, "Polski (Need .ttf file)");
+        _sw_pl->SetLabel(1, "Polski (Need .ttf file)");
+        _sw_pl->Canvas(1)->ReverseColor();
+        _sw_pl->Bind(1, &sw_pl_cb);
+
     }
 
     _sw_mutex_group = new EPDGUI_MutexSwitch();
     _sw_mutex_group->Add(_sw_en);
     _sw_mutex_group->Add(_sw_zh);
     _sw_mutex_group->Add(_sw_ja);
+    _sw_mutex_group->Add(_sw_pl);
+
  
     uint8_t language = GetLanguage();
     if(language == LANGUAGE_JA)
@@ -71,6 +89,12 @@ Frame_Setting_Language::Frame_Setting_Language(void)
     {
         exitbtn("设置");
         _canvas_title->drawString("语言", 270, 34);
+        _sw_zh->setState(1);
+    }
+    else if(language == LANGUAGE_PL)
+    {
+        exitbtn("Ustawienia");
+        _canvas_title->drawString("Jezyk", 270, 34);
         _sw_zh->setState(1);
     }
     else
@@ -89,6 +113,7 @@ Frame_Setting_Language::~Frame_Setting_Language(void)
     delete _sw_en;
     delete _sw_zh;
     delete _sw_ja;
+    delete _sw_pl;
     delete _sw_mutex_group;
 }
 

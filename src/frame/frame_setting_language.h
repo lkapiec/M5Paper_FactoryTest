@@ -15,6 +15,8 @@ private:
     EPDGUI_Switch* _sw_en;
     EPDGUI_Switch* _sw_zh;
     EPDGUI_Switch* _sw_ja;
+    EPDGUI_Switch* _sw_pl;
+
     EPDGUI_MutexSwitch* _sw_mutex_group;
 };
 

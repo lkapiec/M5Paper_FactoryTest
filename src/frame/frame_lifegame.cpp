@@ -212,6 +212,11 @@ Frame_Lifegame::Frame_Lifegame(void)
         exitbtn("主页");
         _canvas_title->drawString("生命游戏", 270, 34);
     }
+    else if(language == LANGUAGE_PL)
+    {
+        exitbtn("Powrot");
+        _canvas_title->drawString("Life Game", 270, 34);
+    }
     else
     {
         exitbtn("Home");

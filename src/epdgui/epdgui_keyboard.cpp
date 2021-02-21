@@ -105,6 +105,14 @@ EPDGUI_Keyboard::EPDGUI_Keyboard(int16_t dir, uint32_t style): EPDGUI_Base()
             else if(style & STYLE_INPUTMODE_NEEDCONFIRM)
                 _btn[kKeyWrap] = new EPDGUI_Button("确认", kBaseX + 792 - 152, k4thLineY, 152, kKeyHeight);
         }
+        else if(language == LANGUAGE_PL)
+        {
+            _btn[kKeySpace] = new EPDGUI_Button("Spacja", kBaseX + 162, k4thLineY, 468, kKeyHeight);
+            if(style & STYLE_INPUTMODE_NORMALTEXT)
+            _btn[kKeyWrap] = new EPDGUI_Button("Wrap", kBaseX + 792 - 152, k4thLineY, 152, kKeyHeight);
+            else if(style & STYLE_INPUTMODE_NEEDCONFIRM)
+            _btn[kKeyWrap] = new EPDGUI_Button("Confirm", kBaseX + 792 - 152, k4thLineY, 152, kKeyHeight);
+        }
         else
         {
             _btn[kKeySpace] = new EPDGUI_Button("Space", kBaseX + 162, k4thLineY, 468, kKeyHeight);
@@ -165,6 +173,15 @@ EPDGUI_Keyboard::EPDGUI_Keyboard(int16_t dir, uint32_t style): EPDGUI_Base()
                 _btn[kKeyWrap] = new EPDGUI_Button("换行", kBaseX + 512 - 128, k4thLineY, 128, kKeyHeight);
             else if(style & STYLE_INPUTMODE_NEEDCONFIRM)
                 _btn[kKeyWrap] = new EPDGUI_Button("确认", kBaseX + 512 - 128, k4thLineY, 128, kKeyHeight);
+        }
+        else if(language == LANGUAGE_PL)
+        {
+            _btn[kKeySpace] = new EPDGUI_Button("Spacja", kBaseX + 132, k4thLineY, 244, kKeyHeight);
+            if(style & STYLE_INPUTMODE_NORMALTEXT)
+                _btn[kKeyWrap] = new EPDGUI_Button("Wrap", kBaseX + 512 - 128, k4thLineY, 128, kKeyHeight);
+            else if(style & STYLE_INPUTMODE_NEEDCONFIRM)
+                _btn[kKeyWrap] = new EPDGUI_Button("Confirm", kBaseX + 512 - 128, k4thLineY, 128, kKeyHeight);
+        
         }
         else
         {

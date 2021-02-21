@@ -108,6 +108,13 @@ Frame_Home::Frame_Home(void)
         InitSwitch(_sw_socket1, "电饭煲", "厨房", ImageResource_home_icon_socket_off_92x92, ImageResource_home_icon_socket_on_92x92);
         InitSwitch(_sw_socket2, "电脑", "卧室", ImageResource_home_icon_socket_off_92x92, ImageResource_home_icon_socket_on_92x92);
     }
+    else if(language == LANGUAGE_PL)
+    {
+        InitSwitch(_sw_light1, "Ceiling Light", "Living Room", ImageResource_home_icon_light_off_92x92, ImageResource_home_icon_light_on_92x92);
+        InitSwitch(_sw_light2, "Table Lamp", "Bedroom", ImageResource_home_icon_light_off_92x92, ImageResource_home_icon_light_on_92x92);
+        InitSwitch(_sw_socket1, "Rice Cooker", "Kitchen", ImageResource_home_icon_socket_off_92x92, ImageResource_home_icon_socket_on_92x92);
+        InitSwitch(_sw_socket2, "Computer", "Bedroom", ImageResource_home_icon_socket_off_92x92, ImageResource_home_icon_socket_on_92x92);
+    }
     else
     {
         InitSwitch(_sw_light1, "Ceiling Light", "Living Room", ImageResource_home_icon_light_off_92x92, ImageResource_home_icon_light_on_92x92);

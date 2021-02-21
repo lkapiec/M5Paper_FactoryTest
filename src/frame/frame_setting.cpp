@@ -75,6 +75,10 @@ void key_synctime_cb(epdgui_args_vector_t &args)
         {
             info.drawString("WLAN未连接", 150, 55);
         }
+        else if(language == LANGUAGE_PL)
+        {
+            info.drawString("WLAN odlaczony", 150, 55);
+        }
         else
         {
             info.drawString("WLAN not connected", 150, 55);
@@ -102,6 +106,10 @@ void key_synctime_cb(epdgui_args_vector_t &args)
         {
             info.drawString("同步失败", 150, 55);
         }
+        else if(language == LANGUAGE_PL)
+        {
+            info.drawString("Synchroniacja czasu bledna", 150, 55);
+        }
         else
         {
             info.drawString("Time sync failed", 150, 55);
@@ -117,6 +125,10 @@ void key_synctime_cb(epdgui_args_vector_t &args)
         else if(language == LANGUAGE_ZH)
         {
             info.drawString("成功", 150, 55);
+        }
+        else if(language == LANGUAGE_PL)
+        {
+            info.drawString("Sukces", 150, 55);
         }
         else
         {
@@ -237,6 +249,17 @@ Frame_Setting::Frame_Setting(void)
         _timezone_canvas->drawString("时区 (UTC)", 15, 35);
         exitbtn("主页");
         _canvas_title->drawString("设置", 270, 34);
+    }        
+    else if(language == LANGUAGE_PL)
+    {
+        _key_wallpaper->setBMPButton("  Tapeta", "\u25B6", ImageResource_item_icon_wallpaper_32x32);
+        _key_language->setBMPButton("  Jezyk", "\u25B6", ImageResource_item_icon_language_32x32);
+        _key_syncntp->setBMPButton("  Sunchronizacja", "", ImageResource_item_icon_ntptime_32x32);
+        _key_restart->setBMPButton("  Restart", "", ImageResource_item_icon_restart_32x32);
+        _key_shutdown->setBMPButton("  Wylaczenie", "", ImageResource_item_icon_shutdown_32x32);
+        _timezone_canvas->drawString("Strefa czas.(UTC)", 15, 35);
+        exitbtn("Dom");
+        _canvas_title->drawString("Ustawienia", 270, 34);
     }
     else
     {

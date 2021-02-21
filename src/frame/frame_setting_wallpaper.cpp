@@ -35,6 +35,11 @@ Frame_Setting_Wallpaper::Frame_Setting_Wallpaper(void)
         exitbtn("设置");
         _canvas_title->drawString("壁纸", 270, 34);
     }
+    else if(language == LANGUAGE_PL)
+    {
+        exitbtn("Ustawienia");
+        _canvas_title->drawString("Tlo", 270, 34);
+    }
     else
     {
         exitbtn("Setting");

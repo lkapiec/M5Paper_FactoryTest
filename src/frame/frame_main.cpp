@@ -4,6 +4,7 @@
 #include "frame_factorytest.h"
 #include "frame_wifiscan.h"
 #include "frame_lifegame.h"
+#include "frame_mpk.h"
 #include "frame_fileindex.h"
 #include "frame_compare.h"
 #include "frame_home.h"
@@ -17,7 +18,8 @@ enum
     kKeySDFile,
     kKeyCompare,
     kKeyHome,
-    kKeyLifeGame
+    kKeyLifeGame,
+    kKeyMpk
 };
 
 #define KEY_W 92
@@ -83,6 +85,18 @@ void key_lifegame_cb(epdgui_args_vector_t &args)
     *((int*)(args[0])) = 0;
 }
 
+void key_mpk_cb(epdgui_args_vector_t &args)
+{
+    Frame_Base *frame = EPDGUI_GetFrame("Frame_Mpk");
+    if(frame == NULL)
+    {
+        frame = new Frame_Mpk();
+        EPDGUI_AddFrame("Frame_Mpk", frame);
+    }
+    EPDGUI_PushFrame(frame);
+    *((int*)(args[0])) = 0;
+}
+
 void key_sdfile_cb(epdgui_args_vector_t &args)
 {
     Frame_Base *frame = new Frame_FileIndex("/");
@@ -135,7 +149,12 @@ Frame_Main::Frame_Main(void): Frame_Base(false)
 
     for(int i = 0; i < 4; i++)
     {
-        _key[i + 4] = new EPDGUI_Button("测试", 20 + i * 136, 240, KEY_W, KEY_H);
+        _key[i + 4] = new EPDGUI_Button("x", 20 + i * 136, 240, KEY_W, KEY_H);
+    }
+
+    for(int i = 0; i < 1; i++)
+    {
+        _key[i + 8] = new EPDGUI_Button("x", 20 + i * 136, 390, KEY_W, KEY_H);
     }
 
     _key[kKeySetting]->CanvasNormal()->pushImage(0, 0, 92, 92, ImageResource_main_icon_setting_92x92);
@@ -186,6 +205,14 @@ Frame_Main::Frame_Main(void): Frame_Base(false)
     _key[kKeyHome]->AddArgs(EPDGUI_Button::EVENT_RELEASED, 0, (void*)(&_is_run));
     _key[kKeyHome]->Bind(EPDGUI_Button::EVENT_RELEASED, key_home_cb);
 
+    _key[kKeyMpk]->CanvasNormal()->pushImage(0, 0, 92, 92, ImageResource_main_icon_home_92x92);
+    *(_key[kKeyMpk]->CanvasPressed()) = *(_key[kKeyMpk]->CanvasNormal());
+    _key[kKeyMpk]->CanvasPressed()->ReverseColor();
+    _key[kKeyMpk]->AddArgs(EPDGUI_Button::EVENT_RELEASED, 0, (void*)(&_is_run));
+    _key[kKeyMpk]->Bind(EPDGUI_Button::EVENT_RELEASED, key_mpk_cb);
+
+
+
     _time = 0;
     _next_update_time = 0;
 }
@@ -193,7 +220,7 @@ Frame_Main::Frame_Main(void): Frame_Base(false)
 
 Frame_Main::~Frame_Main(void)
 {
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < 9; i++)
     {
         delete _key[i];
     }
@@ -208,28 +235,42 @@ void Frame_Main::AppName(m5epd_update_mode_t mode)
     _names->setTextSize(20);
     _names->fillCanvas(0);
     uint8_t language = GetLanguage();
-    _names->drawString("WLAN", 20 + 46 + 3 * 136, 16);
+    
     if(language == LANGUAGE_JA)
     {
         _names->drawString("工場テスト", 20 + 46, 16);
         _names->drawString("設定", 20 + 46 + 136, 16);
         _names->drawString("鍵盤", 20 + 46 + 2 * 136, 16);
+        _names->drawString("WLAN", 20 + 46 + 3 * 136, 16);
+
     }
     else if(language == LANGUAGE_ZH)
     {
         _names->drawString("出厂测试", 20 + 46, 16);
         _names->drawString("设定", 20 + 46 + 136, 16);
         _names->drawString("键盘", 20 + 46 + 2 * 136, 16);
+        _names->drawString("WLAN", 20 + 46 + 3 * 136, 16);
+        
+    }
+    else if(language == LANGUAGE_PL)
+    {
+        _names->drawString("Test", 20 + 46, 16);
+        _names->drawString("Ustawienia", 20 + 46 + 136, 16);
+        _names->drawString("Klawiatura", 20 + 46 + 2 * 136, 16);
+        _names->drawString("WLAN", 20 + 46 + 3 * 136, 16);
     }
     else
     {
         _names->drawString("Test", 20 + 46, 16);
         _names->drawString("Setting", 20 + 46 + 136, 16);
         _names->drawString("Keyboard", 20 + 46 + 2 * 136, 16);
+        _names->drawString("WLAN", 20 + 46 + 3 * 136, 16);
     }
+
     _names->pushCanvas(0, 186, mode);
     
     _names->fillCanvas(0);
+
     if(language == LANGUAGE_JA)
     {
         _names->drawString("メモリー", 20 + 46, 16);
@@ -243,6 +284,13 @@ void Frame_Main::AppName(m5epd_update_mode_t mode)
         _names->drawString("刷新比较", 20 + 46 + 136, 16);
         _names->drawString("家", 20 + 46 + 2 * 136, 16);
         _names->drawString("生命游戏", 20 + 46 + 3 * 136, 16);
+    }
+    else if(language == LANGUAGE_PL)
+    {
+        _names->drawString("Magazyn", 20 + 46, 16);
+        _names->drawString("Porownanie", 20 + 46 + 136, 16);
+        _names->drawString("Automatyka", 20 + 46 + 2 * 136, 16);
+        _names->drawString("LifeGame", 20 + 46 + 3 * 136, 16);
     }
     else
     {
@@ -313,7 +361,7 @@ int Frame_Main::init(epdgui_args_vector_t &args)
 {
     _is_run = 1;
     M5.EPD.WriteFullGram4bpp(GetWallpaper());
-    for(int i = 0; i < 8; i++)
+    for(int i = 0; i < 9; i++)
     {
         EPDGUI_AddObject(_key[i]);
     }

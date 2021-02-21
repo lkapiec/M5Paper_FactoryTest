@@ -3,7 +3,7 @@
 
 #include <M5EPD.h>
 #include <nvs.h>
-#include <tinyxml2.h>
+
 
 #define WALLPAPER_NUM 3
 
